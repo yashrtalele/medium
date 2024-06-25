@@ -56,7 +56,7 @@ blogRouter.put("/", async (c) => {
 
   const body = await c.req.json();
   try {
-    prisma.post.update({
+    await prisma.post.update({
       where: {
         id: body.id,
         authorId: userId,
@@ -72,6 +72,15 @@ blogRouter.put("/", async (c) => {
     c.status(404);
     return c.json({ error: "post not found" });
   }
+});
+
+// TODO: Add pagination
+blogRouter.get("/bulk", async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env?.DATABASE_URL,
+  }).$extends(withAccelerate());
+  const blogs = await prisma.post.findMany();
+  return c.json({ blogs });
 });
 
 blogRouter.get("/:id", async (c) => {
@@ -93,13 +102,4 @@ blogRouter.get("/:id", async (c) => {
     return c.json({ error: "post not found" });
   }
 });
-
-// TODO: Add pagination
-blogRouter.get("/bulk", (c) => {
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env?.DATABASE_URL,
-  }).$extends(withAccelerate());
-  return c.json(prisma.post.findMany());
-});
-
 export { blogRouter };
