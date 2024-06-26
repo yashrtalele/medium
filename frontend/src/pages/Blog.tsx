@@ -4,7 +4,7 @@ import {
   useRecoilValueLoadable,
   useSetRecoilState,
 } from "recoil";
-import { blogDetailSelector, selectedBlogIdAtom } from "../atom";
+import { blogDetailSelector, selectedBlogIdAtom } from "../atoms/blogAtom";
 import { useParams } from "react-router-dom";
 import { Appbar } from "../components/Appbar";
 import { Spinner } from "../components/Spinner";
