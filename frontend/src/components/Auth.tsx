@@ -1,12 +1,12 @@
 import { ChangeEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signupInput } from "@yashrtalele/medium-common";
+import { SignupType } from "@yashrtalele/medium-common";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
   const navigate = useNavigate();
-  const [postInputs, setPostInputs] = useState<signupInput>({
+  const [postInputs, setPostInputs] = useState<SignupType>({
     name: "",
     email: "",
     password: "",
@@ -44,21 +44,19 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
             </div>
           </div>
           <div className="pt-8">
-            {type === "signup"
-              ? (
-                <LabeledInput
-                  label="Name"
-                  placeholder="John Doe"
-                  id="name"
-                  onChange={(e) => {
-                    setPostInputs({
-                      ...postInputs,
-                      name: e.target.value,
-                    });
-                  }}
-                />
-              )
-              : null}
+            {type === "signup" ? (
+              <LabeledInput
+                label="Name"
+                placeholder="John Doe"
+                id="name"
+                onChange={(e) => {
+                  setPostInputs({
+                    ...postInputs,
+                    name: e.target.value,
+                  });
+                }}
+              />
+            ) : null}
             <LabeledInput
               label="Email"
               placeholder="john.doe@email.com"
