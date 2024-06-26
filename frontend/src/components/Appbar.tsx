@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export const Appbar = () => {
@@ -27,13 +27,13 @@ export const Appbar = () => {
 };
 
 const Avatar = ({ size, name }: { size: "big" | "small"; name: string }) => {
+  const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleLogout = () => {
     setShowDropdown(false);
     localStorage.removeItem("token");
-    window.location.reload();
-    window.location.href = "/signin";
+    navigate("/signin");
   };
 
   return (
