@@ -1,24 +1,21 @@
 import { useEffect, useState } from "react";
-import {
-  useRecoilValue,
-  useRecoilValueLoadable,
-  useSetRecoilState,
-} from "recoil";
+import { useRecoilValueLoadable, useSetRecoilState } from "recoil";
 import { blogDetailSelector, selectedBlogIdAtom } from "../atoms/blogAtom";
 import { useParams } from "react-router-dom";
 import { Appbar } from "../components/Appbar";
 import { Spinner } from "../components/Spinner";
 import { FullBlog } from "../components/FullBlog";
 export const Blog = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const setSelectedBlogId = useSetRecoilState(selectedBlogIdAtom);
   const blogLoadable = useRecoilValueLoadable(blogDetailSelector(id));
   const [isPending, setIsPending] = useState(true);
 
   useEffect(() => {
     setIsPending(true);
-    setSelectedBlogId(id);
-
+    if (id) {
+      setSelectedBlogId(id);
+    }
     return () => {
       setSelectedBlogId(null);
     };
