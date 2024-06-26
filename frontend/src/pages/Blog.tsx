@@ -6,7 +6,7 @@ import { Appbar } from "../components/Appbar";
 import { Spinner } from "../components/Spinner";
 import { FullBlog } from "../components/FullBlog";
 export const Blog = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string | undefined }>();
   const setSelectedBlogId = useSetRecoilState(selectedBlogIdAtom);
   const blogLoadable = useRecoilValueLoadable(blogDetailSelector(id));
   const [isPending, setIsPending] = useState(true);
