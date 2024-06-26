@@ -8,7 +8,7 @@ import { FullBlog } from "../components/FullBlog";
 export const Blog = () => {
   const { id } = useParams<{ id: string | undefined }>();
   const setSelectedBlogId = useSetRecoilState(selectedBlogIdAtom);
-  const blogLoadable = useRecoilValueLoadable(blogDetailSelector(id));
+  const blogLoadable = useRecoilValueLoadable(blogDetailSelector(id || ""));
   const [isPending, setIsPending] = useState(true);
 
   useEffect(() => {
