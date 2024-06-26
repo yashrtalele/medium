@@ -2,14 +2,14 @@ import { atom, selectorFamily } from "recoil";
 import { BACKEND_URL } from "../config";
 import axios from "axios";
 
-export const selectedBlogIdAtom = atom({
+export const selectedBlogIdAtom = atom<string | null>({
   key: "selectedBlogIdAtom",
   default: null,
 });
 
 export const blogDetailSelector = selectorFamily({
   key: "blogDetailSelector",
-  get: (blogId) => async () => {
+  get: (blogId: string) => async () => {
     if (!blogId) return null;
     try {
       const response = await axios.get(`${BACKEND_URL}/api/v1/blog/${blogId}`, {
