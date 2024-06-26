@@ -1,30 +1,42 @@
 import { Appbar } from "../components/Appbar";
 import { BlogCard } from "../components/BlogCard";
+import { BlogSkeleton } from "../components/BlogSkeleton";
+import { useBlogs } from "../hooks";
 
 export const Blogs = () => {
+  const { loading, blogs } = useBlogs();
+
+  if (loading) {
+    return (
+      <div>
+        <Appbar />
+        <div className="flex justify-center">
+          <div>
+            <BlogSkeleton />
+            <BlogSkeleton />
+            <BlogSkeleton />
+            <BlogSkeleton />
+            <BlogSkeleton />
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div>
       <Appbar />
       <div className="flex justify-center">
         <div>
-          <BlogCard
-            authorName="Yash"
-            title="How an ugly single-Page Website make $5,000 a Month without Affiliate Marketing"
-            content="How an ugly single-Page Website make $5,000 a Month without Affiliate Marketing. How an ugly single-Page Website make $5,000 a Month without Affiliate Marketing. How an ugly single-Page Website make $5,000 a Month without Affiliate Marketing. How an ugly single-Page Website make $5,000 a Month without Affiliate Marketing"
-            publishedDate={"9th April 2024"}
-          />
-          <BlogCard
-            authorName="Yash"
-            title="How an ugly single-Page Website make $5,000 a Month without Affiliate Marketing"
-            content="How an ugly single-Page Website make $5,000 a Month without Affiliate Marketing. How an ugly single-Page Website make $5,000 a Month without Affiliate Marketing. How an ugly single-Page Website make $5,000 a Month without Affiliate Marketing. How an ugly single-Page Website make $5,000 a Month without Affiliate Marketing"
-            publishedDate={"9th April 2024"}
-          />
-          <BlogCard
-            authorName="Yash"
-            title="How an ugly single-Page Website make $5,000 a Month without Affiliate Marketing"
-            content="How an ugly single-Page Website make $5,000 a Month without Affiliate Marketing. How an ugly single-Page Website make $5,000 a Month without Affiliate Marketing. How an ugly single-Page Website make $5,000 a Month without Affiliate Marketing. How an ugly single-Page Website make $5,000 a Month without Affiliate Marketing"
-            publishedDate={"9th April 2024"}
-          />
+          {blogs.map((blog) => (
+            <BlogCard
+              key={blog.id}
+              id={blog.id}
+              authorName={blog.author.name || "Anonymous"}
+              title={blog.title}
+              content={blog.content}
+              publishedDate={"9th Apr 2024"}
+            />
+          ))}
         </div>
       </div>
     </div>
